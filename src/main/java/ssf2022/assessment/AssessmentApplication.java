@@ -24,9 +24,9 @@ public class AssessmentApplication implements CommandLineRunner {
 	@Override
 	public void run(String ... args) throws Exception {
 
-		String [] itemNames = {"apple", "orange", "bread", "cheese", "chicken", "mineral_water", "instant_noodles"};
-        List<String> itemList = Arrays.asList(itemNames);
-		QSvc.getQuotations(itemList );
+		// String [] itemNames = {"apple", "orange", "bread", "cheese", "chicken", "mineral_water", "instant_noodles"};
+        // List<String> itemList = Arrays.asList(itemNames);
+		// QSvc.getQuotations(itemList );
 
 	}
 

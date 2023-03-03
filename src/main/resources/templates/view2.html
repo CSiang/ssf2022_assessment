@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Delivery Detail</title>
 </head>
 <body>
 
     <h1>Shipping Address</h1>
     <table>
-			
+	
+        
         <form action="/addItem" method="post" th:object="${detail}">
+
+        <tr th:if="${fields.hasErrors('global')}" th:errors="${#fields.errors('global')}"></tr>
         <tr>
             <td>Name:</td>
             <td>
@@ -33,7 +36,7 @@
 
         <div>
 			<button formmethod="get" formaction="/" type="submit">Back</button>
-			<button formmethod="POST" formaction="/quotation" type="submit">Checkout</button>
+			<button formmethod="POST" formaction="/checkout" type="submit">Checkout</button>
 		</div>
 
         </form>

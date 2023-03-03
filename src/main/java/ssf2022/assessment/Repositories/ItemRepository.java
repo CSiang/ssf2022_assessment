@@ -10,8 +10,11 @@ import ssf2022.assessment.Models.Item;
 @Repository
 public class ItemRepository {
     
-    private List<Item> itemList= new LinkedList<>();
+    private List<Item> itemList;
 
+    public ItemRepository(){
+        itemList= new LinkedList<>();
+    }
 
     public List<Item> getItemList() {
         return itemList;

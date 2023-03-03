@@ -21,6 +21,8 @@ import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import ssf2022.assessment.Quotation;
+import ssf2022.assessment.Models.Item;
+import ssf2022.assessment.Repositories.ItemRepository;
 
 @Service
 public class QuotationService {
@@ -82,6 +84,22 @@ public class QuotationService {
         }
 
         return Optional.empty();
+    }
+
+
+    public float calculateCost(Quotation quote, ItemRepository itemRepo){
+
+        List<Item> items = itemRepo.getItemList();
+        Map<String, Float> quotations = quote.getQuotations();
+        float price = 0.0f, totalCost= 0.0f, itemCost =0.0f ;
+        
+        for (Item item: items){
+            price = quotations.get( item.getItem());
+            itemCost = price*item.getQuantity();
+            totalCost+=itemCost;
+        }
+        
+        return totalCost;
     }
 
 
