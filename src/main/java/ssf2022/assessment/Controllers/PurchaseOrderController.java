@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import ssf2022.assessment.Models.Item;
+import ssf2022.assessment.Models.shipDetail;
 import ssf2022.assessment.Repositories.ItemRepository;
 import ssf2022.assessment.Services.ItemService;
 
@@ -36,17 +37,32 @@ public class PurchaseOrderController {
 
     @PostMapping(path = "/addItem")
     public String addItem(@Valid Item item, BindingResult result, Model model){
-        System.out.println(item);
+        
         if(result.hasErrors()){
             return "view1";
         }
-        Optional<FieldError> opt = itemSvc.getError(item);
         
+        Optional<FieldError> opt = itemSvc.getError(item);
+        if (!opt.isEmpty()){
+            result.addError(opt.get());
+            return "view1";
+        }
         
         itemRepo.addItem(item);
 
         model.addAttribute("items", itemRepo.getItemList());
         return "redirect:/";
+    }
+
+    @GetMapping(path ="/shippingaddress")
+    public String view2(Model model){
+
+        if(itemRepo.getItemList().isEmpty()){
+            return "redirect:/";
+        }
+        model.addAttribute("detail", new shipDetail());
+
+        return "view2";
     }
 
 }

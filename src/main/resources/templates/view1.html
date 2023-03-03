@@ -69,12 +69,14 @@
 
 		<div>
 			<button formmethod="POST" formaction="/addItem" type="submit">Add</button>
-			<button type="button">Next</button>
+			<button formmethod="GET" formaction="/shippingaddress" type="submit">Next</button>
 		</div>
 		</form>
 
+		<br>
+		
 		<div th:if="${#lists.isEmpty(items) }">
-			<h1>There is no record.</h1>
+			<h2>Your cart is currently empty.</h2>
 		</div>
 		
 	</body>

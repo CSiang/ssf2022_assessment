@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Shipping Address</h1>
+    <table>
+			
+        <form action="/addItem" method="post" th:object="${detail}">
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input th:field="*{name}" type="text" name="name" size="20" placeholder="You name here">
+            </td>
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>
+                <input th:field="*{address}" type="text" name="address" size="20" placeholder="Your address here.">
+            </td>
+        </tr>
+        <div class ="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        <div class ="alert" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+        <div>
+			<button formmethod="get" formaction="/" type="submit">Back</button>
+			<button formmethod="POST" formaction="/quotation" type="submit">Next</button>
+		</div>
+
+        </form>
+
+    </table>
+    
+
+
+</body>
+</html>

@@ -38,7 +38,13 @@ public class ItemRepository {
     }
 
     public void addItem(Item item){
-        itemList.add(item);
+        if (!itemList.stream().anyMatch(e -> e.getItem().equalsIgnoreCase(item.getItem()))) {
+            itemList.add(item);
+        } else {
+            Item oldItem =  itemList.stream().filter(e -> e.getItem().equalsIgnoreCase(item.getItem())).findFirst().get();
+            int newQty = oldItem.getQuantity() + item.getQuantity();
+            oldItem.setQuantity(newQty);
+        }
     }
 
     
