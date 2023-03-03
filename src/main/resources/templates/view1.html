@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			.alert {color: red;}
+			</style>
+		<title>View 1</title>
+	</head>
+	<body>
+		<!--
+			Feel free to make changes to this HTML but do no change the option in select
+		-->
+
+		<h1>Shopping Cart</h1>
+
+		<table>
+			
+			<form action="/addItem" method="post" th:object="${item}">
+			<tr>
+				<td>Item:</td>
+				<td>
+					<select name="item" th:field="*{item}">
+						<option value="apple">Apple</option>
+						<option value="orange">Orange</option>
+						<option value="bread">Bread</option>
+						<option value="cheese">Cheese</option>
+						<option value="chicken">Chicken</option>
+						<option value="mineral_water">Mineral Water</option>
+						<option value="instant_noodles">Instant Noodles</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Quantity:</td>
+				<td>
+					<input th:field="*{quantity}" type="number" name="quantity" size="4" placeholder="Quantity">
+				</td>
+			</tr>
+			<div class ="alert" th:if="${#fields.hasErrors('item')}" th:errors="*{item}"></div>
+			<div class ="alert" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+		
+		</table>
+		
+
+		
+		<div th:if="${not #lists.isEmpty(items)}">
+		<table border="1" style="margin-top: 2vh; margin-bottom: 2vh;">
+			
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+				</tr>
+			</thead>
+			<tbody th:each="item: ${items}">
+
+				<tr>
+					<td th:text="${item.item}"></td>
+					<td th:text="${item.quantity}"></td>
+				</tr>
+				
+			</tbody>
+
+
+		</table>
+		</div>
+
+		<div>
+			<button formmethod="POST" formaction="/addItem" type="submit">Add</button>
+			<button type="button">Next</button>
+		</div>
+		</form>
+
+		<div th:if="${#lists.isEmpty(items) }">
+			<h1>There is no record.</h1>
+		</div>
+		
+	</body>
+</html>
