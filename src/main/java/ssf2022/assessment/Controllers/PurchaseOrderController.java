@@ -89,9 +89,13 @@ public class PurchaseOrderController {
         itemRepo = (ItemRepository)session.getAttribute("items");
         
         Optional <Quotation> opt = qoSvc.getQuotations(itemRepo.getItemNames());
+
         if (opt.isEmpty()){
-            ObjectError err = new ObjectError("globalError","Invalid resources");
+            
+            ObjectError err = new ObjectError("globalError", "Invalid resources");
             result.addError(err);
+            
+            model.addAttribute("detail", detail);
             return "view2";
         }
         
@@ -101,6 +105,8 @@ public class PurchaseOrderController {
         model.addAttribute("ID", qo.getQuoteId());
         model.addAttribute("detail", detail);
         model.addAttribute("totalCost", totalCost);
+
+        session.invalidate();
 
         return "view3";
     }

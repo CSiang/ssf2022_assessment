@@ -10,11 +10,12 @@
 
     <h1>Shipping Address</h1>
     <table>
-	
-        
+
         <form action="/addItem" method="post" th:object="${detail}">
 
-        <tr th:if="${fields.hasErrors('global')}" th:errors="${#fields.errors('global')}"></tr>
+            <div  th:if="${#fields.hasErrors('global')}" th:errors="${#fields.errors('global')}"></div>
+
+
         <tr>
             <td>Name:</td>
             <td>
@@ -33,6 +34,7 @@
         </tr>
         <div class ="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         <div class ="alert" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
 
         <div>
 			<button formmethod="get" formaction="/" type="submit">Back</button>

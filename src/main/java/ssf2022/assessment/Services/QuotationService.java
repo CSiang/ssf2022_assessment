@@ -29,7 +29,7 @@ public class QuotationService {
     
     public Optional <Quotation> getQuotations(List<String> items) throws Exception {
 
-        String QsyUrl = "https://quotation.chuklee.com";
+        String QsyUrl = "https://quotation.chuklee.com/quotation";
 
         JsonArrayBuilder jArr = Json.createArrayBuilder();
         for (int i=0; i< items.size(); i++){
@@ -71,12 +71,12 @@ public class QuotationService {
             Quotation qo = new Quotation();
             qo.setQuoteId(jo.getString("quoteId"));
             
-            JsonObject quoteObject = jo.getJsonObject("quotations");
+            JsonArray quoteObject = jo.getJsonArray("quotations");
             Map<String, Float> quotations = new HashMap<>();
 
-            for(String name: items){
-                quoteObject.getJsonNumber(name).doubleValue();
-                quotations.put(name, (float)quoteObject.getJsonNumber(name).doubleValue());
+            for(int i=0; i<quoteObject.size(); i++){
+                jo = quoteObject.getJsonObject(i);
+                quotations.put(jo.getString("item"), (float)jo.getJsonNumber("unitPrice").doubleValue());
             }
 
             qo.setQuotations(quotations);
@@ -98,9 +98,50 @@ public class QuotationService {
             itemCost = price*item.getQuantity();
             totalCost+=itemCost;
         }
-        
+
         return totalCost;
     }
+
+    // public void getQuotations(List<String> items) throws Exception {
+
+    //     String QsyUrl = "https://quotation.chuklee.com/quotation";
+
+    //     JsonArrayBuilder jArr = Json.createArrayBuilder();
+    //     for (int i=0; i< items.size(); i++){
+    //         jArr.add(items.get(i));
+    //     }
+
+    //     JsonArray json = jArr.build();
+
+    //     System.out.println(json.toString());
+
+    //     RequestEntity<String> req = RequestEntity.post(QsyUrl).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+    //     .header("Accept", "Application/json").body(json.toString(),String.class);
+
+    //     RestTemplate template = new RestTemplate();
+
+    //     ResponseEntity<String> resp = null;
+
+	// 	String payload="";
+	// 	int statusCode=500;
+	// 	try {
+	// 		resp = template.exchange(req, String.class);
+	// 		payload = resp.getBody();
+	// 		statusCode = resp.getStatusCode().value();
+
+	// 	} catch (HttpClientErrorException ex) {
+    //         payload = ex.getResponseBodyAsString();
+	// 		//statusCode = ex.getRawStatusCode();
+	// 		statusCode = ex.getStatusCode().value();
+    //         // return Optional<T>.empty();
+	// 	} finally{
+    //         System.out.printf(">>> status code: %d\n", statusCode);
+    //         System.out.printf(">>> payload: \n%s\n", payload);
+    //     }
+
+    
+    // }
+
 
 
 }
